@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Sliding Photo Gallery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap" rel="stylesheet"> 
+    <link href="styles/coolstyles.css" rel="stylesheet" >
+</head>
+
+<body>
+<div id="container">
+	<header>
+    	<h1>Pure CSS Slider, Transitions, and Animations</h1>
+    </header>
+    
+    <div class="shapes">
+        <div class="shape1">no transform</div>
+        <div class="shape1">rotate</div>
+        <div class="shape1">scale</div>        
+        <div class="shape1">skew</div>        
+        <div class="shape1">ALL</div>
+    </div>
+
+    <main class="slider">
+        <input type="radio" name="sliders" id="slide1" checked="checked">
+        <input type="radio" name="sliders" id="slide2">
+        <input type="radio" name="sliders" id="slide3">
+        <div class="slideback">
+            <img src="images/plains2.png" alt="a tree standing isolated in grasslands">
+            <div class="slideholder">
+                <div class="imgslide">
+                    <img src="images/giraffe.png" alt="a giraffe">
+                </div>
+                <div class="imgslide">
+                    <img src="images/lion.png" alt="a lion">
+                </div>
+                <div class="imgslide">
+                    <img src="images/zebra.png" alt="a zebra">
+                </div>           
+            </div>
+        </div>
+        <label for="slide1">Giraffe</label>
+        <label for="slide2">Lion</label>
+        <label for="slide3">Zebra</label>
+    </main>
+    <footer>
+    	<p>Scary Stuff &copy Scary People</p>
+    </footer>
+</div>
+</body>
+</html>
