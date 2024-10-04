@@ -80,3 +80,263 @@ footer p{
 	padding:20px;
 	text-align:right;
 }
+
+/***********************************  
+			Transforms
+***********************************/
+.shapes{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.shape1{
+	width: 60px;
+	height: 60px;
+	background: lightblue;
+}
+
+.shape1:nth-child(1){
+	/* call the pendulum animation by name */
+	animation-name: pendulum;
+	animation-duration: 3s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	/* you can change the direction of the animation, normal, reverse or alternate */
+	animation-direction: alternate;
+}
+
+.shape1:nth-child(2){
+	/* use transform  to rotate the element
+	rotation is measured in degrees(deg), up to 360*/
+	transform: rotate(45deg);
+
+	/* transition tells an element to animate a change */
+	transition: all 2s;
+	/* reansition is a shorthand property - at minium, you need something to transition and a time for the animation
+	"all" means any change will be animated */
+}
+
+.shape1:nth-child(2):hover{
+	/* change the rotation on hover */
+	transform: rotate(200deg);
+}
+
+.shape1:nth-child(3){
+	/* use transform:scale to change the size of an object 
+	1 is the default size
+	scale doesn't change the structure of th epage, just makes the object look bigger or smaller*/
+	transform: scale(.3, 2);
+	/* one value scales width and height two value scales width than height */
+	/* do a compound transition, different timings for different properties 
+	1000ms = 1s*/
+	transition: background-color 2s, transform 100ms;
+
+	/* try the complex jump... */
+	animation: complex-jump 3s ease-in-out infinite;
+}
+
+.shape1:nth-child(3):hover{
+	background-color: brown;
+}
+
+.shape1:nth-child(3):active{
+	transform: scale(4, 1);
+}
+
+.shape1:nth-child(4){
+	/* shew adds a distortion to the element
+	it is also measured in degrees */
+	transform: skew(-30deg, -40deg);
+	/* skew can be negative or positive, depending on the way one value skews horizontal and vertical
+	two values skews horizontal then vertical
+	you can also use skewX() or skewY() */
+
+	/* call the jump animation with different properties */
+	animation-name: jump;
+	animation-duration: 750ms;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-delay: 1s;
+}
+
+.shape1:nth-child(5){
+	/* transform multiple properties at the same time */
+	transform: rotate(100deg) scale(.8) skew(10deg, 40deg);
+	transition: all 2s;
+
+	/* if we want to apply the animation, call it by name... 
+	animation-name and animatino-duration are required properties*/
+	animation-name: jump;
+	animation-duration: 2s;
+	/* there are optional animation */
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite; /* or set a number of times */
+}
+
+.shape1:nth-child(5):hover{
+	transform: rotate(250deg) scale(3) skew(40deg, -40deg);
+}
+
+/***********************************  
+			Animations
+***********************************/
+/* @keyframes defines an animation - inside you set up how the animation will play */
+@keyframes jump{
+	/* keyframes are points in an animation - they are defined by percentage
+	in order to make this work, you have to call it by name on an elemnt */
+	50%{
+		transform: translate(0, -100px);
+	}
+}
+
+@keyframes pendulum{
+	/* use 0%, 100% to apply a preperty to the whole animation */
+	0%,
+	100%{
+		/* transform-origin sets the anchor point for the object to move */
+		transform-origin: 0 -100px;
+	}
+
+	0%{
+		transform: rotate(77deg)
+	}
+
+	100%{
+		transform: rotate(-450deg)
+	}
+}
+
+@keyframes complex-jump {
+	/*you can add as many keyframes as you njeed, with all different properties */
+	5%{
+		transform: scaleY(0.9);
+		transform: translateY(0);
+	}
+
+	10%{
+		transform: scaleY(1.1);
+	}
+
+	50%{
+		transform: scaleY(1);
+		transform: translateY(-100px);
+	}
+
+	90%{
+		transform: scaleY(1);
+	}
+
+	95%{
+		transform: scaleY(0.9);
+		transform: translateY(0);
+	}
+
+	100%{
+		transform: scaleY(1);
+	}
+}
+
+/***********************************  
+			Slider
+***********************************/
+.slider{
+	/* three properties in margin mean top, left-right, bottom */
+	margin: 30px auto 0;
+	width: 80%;
+	/* text-align will center images as well as text */
+	text-align: center;
+	/* to hide anything outside the slider, use overflow:hidden */
+	overflow: hidden;
+}
+
+.slideback{
+	/* by giving this element position position:relative, it will contain thw absolutely positioned slider (below) */
+	position: relative;
+}
+
+/* the > is the direct child selector, wich selects only the elements which are children, not grandchildren or great-grandchildren */
+.slideback > img{
+	width: 100%;
+}
+
+.slideholder{
+	/* position:absolute is relative to the browser window
+	OR to the last element with a position property */
+	position:absolute;
+	top:0;
+	width: 300%;
+	height: 100%;
+	display: flex;
+	/* background-color: black; */
+	/* add an animation on change */
+	transition: margin 1s;
+}
+
+.imgslide{
+	/* flexgrow will allow objects to expend and take up the whole width */
+	flex-grow: 1;
+	height: 100%;
+}
+
+.imgslide img{
+	margin-top: 26%;
+	width: 26%;
+}
+
+/* style radio buttons beaed on whether they are checked */
+/* The "~" is the "after" selecor, targeting an element that comes after another (in HTML order) */
+#slide1:checked ~ .slideback .slideholder{margin-left: 0;}
+#slide2:checked ~ .slideback .slideholder{margin-left: -100%;}
+#slide3:checked ~ .slideback .slideholder{margin-left: -200%;}
+
+/***********************************  
+			Lables
+***********************************/
+label{
+	/* inline-block makes these behave like images: they can have a width and a height, but they will sit horizontally */
+	display: inline-block;
+	width: 100px;
+	padding: 5px 0;
+	text-align: center;
+	margin: 0 15px;
+	/* hsla (hue, saturation, luminosity, alpha) is a way of setting colours
+	that makes it easy to get darker and lighter colours of the same hue */
+	border: 2px solid hsla(101, 100%, 30%, 1.00);
+	background: hsla(101, 100%, 80%, 1.00);
+	font-size: 24px;
+	border-radius: 10px;
+
+	/* add an animation so the color change on hover looks softer */
+	transition: background 0.5s, transform 0.15s;
+}
+
+label:hover{
+	background: hsla(101, 100%, 40%, 1.00);
+	/* change the sursor to a pointer, so it looks like a button */
+	cursor: pointer;
+}
+
+label:active{
+	transform: scale(0.9)
+}
+
+/* hide the radio buttons - use the attribute selector to get only the radio buttons */
+input[type="radio"]{
+	display: none;
+}
+
+/* use the sibling selector ~ to grab one of the labels nased on which radio button is checked */
+#slide1:checked ~ label:nth-of-type(1){
+	background:hsla(101, 100%, 50%, 1.00);
+	font-weight: bold;
+}
+
+#slide2:checked ~ label:nth-of-type(2){
+	background:hsla(101, 100%, 50%, 1.00);
+	font-weight: bold;
+}
+
+#slide3:checked ~ label:nth-of-type(3){
+	background:hsla(101, 100%, 50%, 1.00);
+	font-weight: bold;
+}
